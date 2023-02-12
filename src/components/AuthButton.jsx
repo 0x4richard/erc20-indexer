@@ -1,10 +1,15 @@
-import { Button } from "@chakra-ui/react"
+import { Button, useToast } from "@chakra-ui/react"
 import { ethers } from "ethers"
 import { useEffect, useState } from "react"
 
 export default function AuthButton() {
+  const toast = useToast()
   if (!window.ethereum) {
-    alert("Please install MetaMask to continue.")
+    toast({
+      title: "Please install MetaMask to continue.",
+      status: "warning",
+      isClosable: false,
+    })
     return
   }
 
@@ -21,7 +26,12 @@ export default function AuthButton() {
       const data = await window.ethereum.send("eth_requestAccounts")
       setAccount(data.result[0])
     } catch (err) {
-      alert("You need to allow this website to access your Ethereum account.")
+      toast({
+        title:
+          "You need to allow this website to access your Ethereum account.",
+        status: "error",
+        isClosable: true,
+      })
     }
   }
 
