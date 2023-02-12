@@ -28,7 +28,9 @@ export default function AuthButton() {
   useEffect(() => {
     const setAddressToAccount = async () => {
       const walletAddress = await getAccountAddress()
-      setAccount(walletAddress.toLowerCase())
+      if (!!walletAddress) {
+        setAccount(walletAddress.toLowerCase())
+      }
     }
 
     setAddressToAccount()
