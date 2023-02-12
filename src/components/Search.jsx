@@ -1,13 +1,16 @@
 import { Heading, Input, Button } from "@chakra-ui/react"
+import { useState } from "react"
 
-export default function Search({ setUserAddress, getTokenBalance }) {
+export default function Search({ setUserAddress }) {
+  const [address, setAddress] = useState("")
+
   return (
     <>
       <Heading mt={42}>
         Get all the ERC-20 token balances of this address:
       </Heading>
       <Input
-        onChange={(e) => setUserAddress(e.target.value)}
+        onChange={(e) => setAddress(e.target.value)}
         color="black"
         w="600px"
         textAlign="center"
@@ -15,7 +18,12 @@ export default function Search({ setUserAddress, getTokenBalance }) {
         bgColor="white"
         fontSize={24}
       />
-      <Button fontSize={20} onClick={getTokenBalance} mt={36} bgColor="blue">
+      <Button
+        fontSize={20}
+        onClick={(e) => setUserAddress(address)}
+        mt={36}
+        bgColor="blue"
+      >
         Check ERC-20 Token Balances
       </Button>
     </>
