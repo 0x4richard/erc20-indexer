@@ -14,9 +14,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Box w="100vw">
-        <Box position="fixed" top="10px" right="10px">
+        <Flex justify="end" mr="16px" mt="16px">
           <AuthButton />
-        </Box>
+        </Flex>
         <Center>
           <Header />
         </Center>
