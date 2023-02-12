@@ -1,7 +1,7 @@
 import { Heading, Input, Button } from "@chakra-ui/react"
 import { useState } from "react"
 
-export default function Search({ setUserAddress }) {
+export default function Search({ setUserAddress, isTokenLoading }) {
   const [address, setAddress] = useState("")
 
   return (
@@ -23,8 +23,9 @@ export default function Search({ setUserAddress }) {
         onClick={(e) => setUserAddress(address)}
         mt={36}
         bgColor="blue"
+        disabled={isTokenLoading}
       >
-        Check ERC-20 Token Balances
+        {isTokenLoading ? "Loading..." : "Check ERC-20 Token Balances"}
       </Button>
     </>
   )
