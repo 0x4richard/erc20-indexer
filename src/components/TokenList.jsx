@@ -1,8 +1,16 @@
-import { Heading, Box, Flex, Image, SimpleGrid } from "@chakra-ui/react"
-import { Utils } from "alchemy-sdk"
+import {
+  Box,
+  SimpleGrid,
+  Spinner,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react"
 import { useAlchemyClient } from "../hooks/useAlchemyClient"
 import { useQuery } from "react-query"
 import { useEffect } from "react"
+import TokenDetail from "./TokenDetail"
 
 export default function TokenList({ userAddress, setIsTokenLoading }) {
   async function getTokenBalance() {
@@ -37,37 +45,50 @@ export default function TokenList({ userAddress, setIsTokenLoading }) {
 
   return (
     <>
-      {isLoading && <Box>Loading...</Box>}
-      {isError && <Box>Error: {error.message}</Box>}
+      {isLoading && (
+        <Box mt={10}>
+          <Spinner color="red.500" size="xl" />
+        </Box>
+      )}
+
+      {isError && (
+        <Alert
+          status="error"
+          variant="subtle"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          height="200px"
+          width="600px"
+          mt={10}
+        >
+          <AlertIcon boxSize="40px" mr={0} />
+          <Box>
+            <AlertTitle mt={4} mb={1} fontSize="lg">
+              Error
+            </AlertTitle>
+            <AlertDescription maxWidth="sm">{error.message}</AlertDescription>
+          </Box>
+        </Alert>
+      )}
+
       {isSuccess && (
-        <>
-          <Heading my={36}>ERC-20 token balances:</Heading>
-          <SimpleGrid w={"90vw"} columns={4} spacing={24}>
-            {data.tokenBalances.map((e, i) => {
-              return (
-                <Flex
-                  flexDir={"column"}
-                  color="white"
-                  bg="blue"
-                  w={"20vw"}
-                  key={i}
-                >
-                  <Box>
-                    <b>Symbol:</b> ${data.tokenDataObjects[i].symbol}&nbsp;
-                  </Box>
-                  <Box>
-                    <b>Balance:</b>&nbsp;
-                    {Utils.formatUnits(
-                      e.tokenBalance,
-                      data.tokenDataObjects[i].decimals
-                    )}
-                  </Box>
-                  <Image src={data.tokenDataObjects[i].logo} />
-                </Flex>
-              )
-            })}
-          </SimpleGrid>
-        </>
+        <SimpleGrid
+          mt={10}
+          spacing={3}
+          templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+        >
+          {data.tokenBalances.map((e, i) => {
+            return (
+              <TokenDetail
+                key={i}
+                tokenBalance={e.tokenBalance}
+                tokenData={data.tokenDataObjects[i]}
+              />
+            )
+          })}
+        </SimpleGrid>
       )}
     </>
   )
