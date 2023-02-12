@@ -15,6 +15,7 @@ export default function AuthButton() {
   }
 
   const [account, setAccount] = useState()
+  const [ensName, setEnsName] = useState()
   const provider = new ethers.providers.Web3Provider(window.ethereum)
 
   async function getAccountAddress() {
@@ -36,11 +37,17 @@ export default function AuthButton() {
     }
   }
 
+  async function loadENSName(address) {
+    const ensName = await provider.lookupAddress(address)
+    if (!!ensName) setEnsName(ensName)
+  }
+
   useEffect(() => {
     const setAddressToAccount = async () => {
       const walletAddress = await getAccountAddress()
       if (!!walletAddress) {
         setAccount(walletAddress.toLowerCase())
+        loadENSName(walletAddress)
       }
     }
 
@@ -50,7 +57,7 @@ export default function AuthButton() {
   if (!!account) {
     return (
       <Button colorScheme="teal" variant="outline">
-        {trimAddress(account)}
+        {!!ensName ? ensName : trimAddress(account)}
       </Button>
     )
   }
