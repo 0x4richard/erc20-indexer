@@ -1,6 +1,7 @@
 import { Button, useToast } from "@chakra-ui/react"
 import { ethers } from "ethers"
 import { useEffect, useState } from "react"
+import { trimAddress } from "../utils/format"
 
 export default function AuthButton() {
   const toast = useToast()
@@ -49,7 +50,7 @@ export default function AuthButton() {
   if (!!account) {
     return (
       <Button colorScheme="teal" variant="outline">
-        {account}
+        {trimAddress(account)}
       </Button>
     )
   }
