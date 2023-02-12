@@ -22,8 +22,8 @@ export default function Search({ setUserAddress, isTokenLoading }) {
       <Button
         fontSize={20}
         onClick={(e) => setUserAddress(address)}
-        mt={36}
-        bgColor="blue"
+        colorScheme="blue"
+        mt={5}
         disabled={isTokenLoading}
       >
         {isTokenLoading ? "Loading..." : "Check ERC-20 Token Balances"}
