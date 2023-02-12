@@ -44,7 +44,7 @@ export default function AuthButton() {
 
   return (
     <Button colorScheme="teal" variant="solid" onClick={connectAccount}>
-      Connect to your wallet
+      Connect Wallet
     </Button>
   )
 }

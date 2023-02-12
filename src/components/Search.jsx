@@ -17,6 +17,7 @@ export default function Search({ setUserAddress, isTokenLoading }) {
         p={4}
         bgColor="white"
         fontSize={24}
+        placeholder="Enter address or ENS name."
       />
       <Button
         fontSize={20}
