@@ -4,6 +4,7 @@ import Header from "./components/Header"
 import Search from "./components/Search"
 import TokenList from "./components/TokenList"
 import { QueryClient, QueryClientProvider } from "react-query"
+import AuthButton from "./components/AuthButton"
 
 function App() {
   const [userAddress, setUserAddress] = useState("")
@@ -13,6 +14,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Box w="100vw">
+        <Box position="fixed" top="10px" right="10px">
+          <AuthButton />
+        </Box>
         <Center>
           <Header />
         </Center>
