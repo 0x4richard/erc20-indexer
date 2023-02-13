@@ -15,7 +15,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Box w="100vw">
         <Flex justify="end" mr="16px" mt="16px">
-          <AuthButton />
+          <AuthButton setUserAddress={setUserAddress} />
         </Flex>
         <Center>
           <Header />
@@ -27,6 +27,7 @@ function App() {
           justifyContent={"center"}
         >
           <Search
+            userAddress={userAddress}
             setUserAddress={setUserAddress}
             isTokenLoading={isTokenLoading}
           />

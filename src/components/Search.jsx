@@ -1,8 +1,16 @@
 import { Input, Button, Stack } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-export default function Search({ setUserAddress, isTokenLoading }) {
+export default function Search({
+  userAddress,
+  setUserAddress,
+  isTokenLoading,
+}) {
   const [address, setAddress] = useState("")
+
+  useEffect(() => {
+    setAddress(userAddress)
+  }, [userAddress])
 
   return (
     <Stack>
@@ -15,6 +23,7 @@ export default function Search({ setUserAddress, isTokenLoading }) {
         bgColor="white"
         fontSize={24}
         placeholder="Enter address or ENS name."
+        value={address}
       />
       <Button
         fontSize={20}

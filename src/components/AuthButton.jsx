@@ -3,7 +3,7 @@ import { ethers } from "ethers"
 import { useEffect, useState } from "react"
 import { trimAddress } from "../utils/format"
 
-export default function AuthButton() {
+export default function AuthButton({ setUserAddress }) {
   const toast = useToast()
   if (!window.ethereum) {
     toast({
@@ -42,6 +42,10 @@ export default function AuthButton() {
     if (!!ensName) setEnsName(ensName)
   }
 
+  function populateAccountAddress() {
+    setUserAddress(account)
+  }
+
   useEffect(() => {
     const setAddressToAccount = async () => {
       const walletAddress = await getAccountAddress()
@@ -56,7 +60,11 @@ export default function AuthButton() {
 
   if (!!account) {
     return (
-      <Button colorScheme="teal" variant="outline">
+      <Button
+        colorScheme="teal"
+        variant="outline"
+        onClick={populateAccountAddress}
+      >
         {!!ensName ? ensName : trimAddress(account)}
       </Button>
     )
